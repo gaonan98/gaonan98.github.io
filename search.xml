@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>声纹识别论文阅读（六）</title>
+      <link href="/2022/11/02/sheng-wen-shi-bie-lun-wen-yue-du-liu/"/>
+      <url>/2022/11/02/sheng-wen-shi-bie-lun-wen-yue-du-liu/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h1><p>Dual Path Embedding Learning for Speaker Verification with Triplet Attention</p><h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><p>本文提出了一种非常新颖的方法，通过两条路径来学习不同的特征，再让它们交互来得到更加全面的特征。用巧妙的设计模拟出了相似于RNN的状态，使得特征能够不断的积累。除此之外还提出了TA模块，即将C、F、T三种特征两两配对，经过注意力机制后再度融合，强调了三个维度间特征的相互依赖性。</p><p>基于上述创新之处，构建出了DPNet。且达到了交换两条路径上的特征，并使特征不断积累的效果。</p><h1 id="3-研究目标"><a href="#3-研究目标" class="headerlink" title="3.研究目标"></a>3.研究目标</h1><p>在说话人识别任务当中存在很多优秀的模型，但是人们对于掺杂了变种结构的混合模型的研究较少。故作者提出了一种新的混合变体网络结构。</p><h1 id="4-使用方法"><a href="#4-使用方法" class="headerlink" title="4.使用方法"></a>4.使用方法</h1><p>该网络中主要有两点创新，一个是双路径嵌入学习，另一个是提出了基于注意力机制的三特征融合TA模块。</p><h2 id="4-1-双路径嵌入学习"><a href="#4-1-双路径嵌入学习" class="headerlink" title="4.1 双路径嵌入学习"></a>4.1 双路径嵌入学习</h2><p>双路径为<strong>残差路径</strong>和<strong>循环路径</strong>，这两个路径所提取的特征都被用来交换信息以提取更好的特征。</p><ul><li>残差路径使用的是常用的ResNet</li><li>循环路径设计为给当前层提供的特征为先前网络层的特征沿着网络深度的积累（类似RNN，我想这也是它被称为循环路径的原因吧）</li></ul><p>下面是DPNet的模型结构图<br><img src="https://s1.ax1x.com/2022/11/02/xHO77D.jpg" alt="DPNet"></p><ol><li>残差路径</li></ol><p>残差路径即Residual Block，其实我觉得这个路径确切点可以叫做残差循环路径，因为在它也包含了和循环路径中相同的结构。不过作者可能更想突出它残差网络的部分，所以命名为残差路径。它主要使用ResNet网络和TA模块（TA后面会有讲到）</p><ol start="2"><li>循环路径</li></ol><p>循环路径即Recurrent Block。它主要用来积累每一层的特征、与残差路径交换信息、在时序上达到对特征的<strong>再利用和再挖掘</strong>。需要注意的是再循环路径中用到的第一个卷积为point-wise convolution（还记得上一篇论文里面提到的depth-wise convolution么？<a href="https://gaonan98.github.io/2022/10/24/sheng-wen-shi-bie-lun-wen-yue-du-wu/">传送门</a>）</p><p><em>这里不得不吐槽一下，这是一篇2022年声纹顶会interspeech上的文章，但是在写作时他却用了不合适的符号。他将循环路径中的两个卷积分别分为Conv1和Conv2，但是在模型图的残差路径中已经存在一个Conv1。这让我看的时候愣逼了半天，不过也有可能是我理解有问题吧，希望是我理解有问题。。。除此之外在本文Conclusions这一章，出现了把outperform错写成ourperform的低级错误，希望这也是我没看懂的单词吧，/(ㄒoㄒ)/~~</em></p><p><strong>至此，我们可以看出DPNet的核心思想就是积累和交换两个路径上的特征，从而达到加强特征学习的效果。</strong></p><h2 id="4-2-Triplet-Attention-Module-TA"><a href="#4-2-Triplet-Attention-Module-TA" class="headerlink" title="4.2 Triplet Attention Module(TA)"></a>4.2 Triplet Attention Module(TA)</h2><p>这里作者提出了一种新的注意力模块，如下图<br><img src="https://s1.ax1x.com/2022/11/04/xqODnP.png" alt="TA"><br>它主要分为三个部分，分别提取了特征在CF、CT和FT上的特征，强调了特征之间的相互依赖性，最后再加以融合。</p><h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><ul><li>DPNet继承了残差网络和循环网络的优点，能够更好的实现对于特征的<strong>再利用和再发现</strong></li><li>DPNet的关键所在就是<strong>积累和交换</strong>两个路径下的特征</li><li>在CNN网络中沿着<strong>深度</strong>引入循环路径对于特征的再利用和再发现是非常有用的</li></ul><h1 id="6-额外笔记"><a href="#6-额外笔记" class="headerlink" title="6.额外笔记"></a>6.额外笔记</h1><h2 id="6-1-pointwise-convolution"><a href="#6-1-pointwise-convolution" class="headerlink" title="6.1 pointwise convolution"></a>6.1 pointwise convolution</h2><p>它与常规卷积非常相似，唯一不同的是它的<strong>卷积核大小为1*1*M</strong>,M为被卷积特征的通道数。如下图：<br><img src="https://img-blog.csdnimg.cn/20210323144720682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjA2MDU3Mg==,size_16,color_FFFFFF,t_70" alt="pointwise convolution"></p><h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7.参考资料"></a>7.参考资料</h1><ul><li><a href="https://blog.csdn.net/weixin_42060572/article/details/115123303?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166752201816782428682113%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=166752201816782428682113&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-5-115123303-null-null.142%5Ev63%5Econtrol,201%5Ev3%5Econtrol_2,213%5Ev1%5Et3_esquery_v1&amp;utm_term=pointwise%20convolution&amp;spm=1018.2226.3001.4187">卷积网络基础知识</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 论文阅读笔记 </tag>
+            
+            <tag> 深度学习 </tag>
+            
+            <tag> 人工智能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>声纹识别论文阅读（五）</title>
       <link href="/2022/10/24/sheng-wen-shi-bie-lun-wen-yue-du-wu/"/>
       <url>/2022/10/24/sheng-wen-shi-bie-lun-wen-yue-du-wu/</url>
@@ -176,7 +205,7 @@
       <link href="/2022/10/03/bi-ji-mo-ban/"/>
       <url>/2022/10/03/bi-ji-mo-ban/</url>
       
-        <content type="html"><![CDATA[<h1 id="论文笔记"><a href="#论文笔记" class="headerlink" title="论文笔记"></a>论文笔记</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>论文读了总是忘，所以从现在开始记录所读的每一篇论文！</p><h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h1><p>文章标题</p><h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><p>写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段。</p><h1 id="3-研究目标"><a href="#3-研究目标" class="headerlink" title="3.研究目标"></a>3.研究目标</h1><p>作者的研究目标</p><h1 id="4-使用方法"><a href="#4-使用方法" class="headerlink" title="4.使用方法"></a>4.使用方法</h1><p>解决问题的方法/算法是什么？</p><h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><p>作者给了哪些strong conclusion, 又给了哪些weak conclusion?</p><h1 id="6-额外笔记"><a href="#6-额外笔记" class="headerlink" title="6.额外笔记"></a>6.额外笔记</h1><p>在这些框架外额外需要记录的笔记。</p><h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7.参考资料"></a>7.参考资料</h1><p>参考资料</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h1><p>文章标题</p><h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><p>写完笔记之后最后填，概述文章的内容，以后查阅笔记的时候先看这一段。</p><h1 id="3-研究目标"><a href="#3-研究目标" class="headerlink" title="3.研究目标"></a>3.研究目标</h1><p>作者的研究目标</p><h1 id="4-使用方法"><a href="#4-使用方法" class="headerlink" title="4.使用方法"></a>4.使用方法</h1><p>解决问题的方法/算法是什么？</p><h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><p>作者给了哪些strong conclusion, 又给了哪些weak conclusion?</p><h1 id="6-额外笔记"><a href="#6-额外笔记" class="headerlink" title="6.额外笔记"></a>6.额外笔记</h1><p>在这些框架外额外需要记录的笔记。</p><h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7.参考资料"></a>7.参考资料</h1><p>参考资料</p>]]></content>
       
       
       <categories>

@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="声纹识别论文阅读（三）, NanGuai">
-    <meta name="description" content="介绍了对于一种基于注意力的Transformer模型的高效微调。">
+    <meta name="keywords" content="声纹识别论文阅读（六）, NanGuai">
+    <meta name="description" content="1.题目Dual Path Embedding Learning for Speaker Verification with Triplet Attention
+2.总结本文提出了一种非常新颖的方法，通过两条路径来学习不同的特征，再让它们交">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>声纹识别论文阅读（三） | NanGuai</title>
+    <title>声纹识别论文阅读（六） | NanGuai</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -358,13 +359,13 @@
 
 <!--  -->
 
-<!-- <div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')"> -->
+<!-- <div class="bg-cover pd-header post-cover" style="background-image: url('https://s1.ax1x.com/2022/11/02/xHdOAA.jpg')"> -->
 <div class="bg-cover pd-header post-cover">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">声纹识别论文阅读（三）</h1>
+                    <h1 class="description center-align post-title">声纹识别论文阅读（六）</h1>
                 </div>
             </div>
         </div>
@@ -421,28 +422,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-07
+                    2022-11-02
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-24
+                    2022-11-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    3 分
                 </div>
                 
 
@@ -462,29 +463,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-Title"><a href="#1-Title" class="headerlink" title="1.Title"></a>1.Title</h2><p>AN ATTENTION-BASED BACKEND ALLOWING EFFICIENT FINE-TUNING OF TRANSFORMER MODELS FOR SPEAKER VERIFICATION</p>
-<h2 id="2-Summary"><a href="#2-Summary" class="headerlink" title="2.Summary"></a>2.Summary</h2><p>本篇文章我没有读完，原因是觉得后续工作对我来说没有太大的帮助。本文主要讲的是利用预训练模型来提取声纹特征，在加以微调来改善模型。其实从微调可以看出，重点还是在前面，即基于强大的预训练模型来进行下游任务。这里提到了transformer，该模型自2017年提出以来一直火到了现在，足以见得其强大之处。也正是因为读到这篇论文，让我想再去研究研究transformer，因为之前只是大概了解了一下，并没有系统学习记录下来。</p>
-<h2 id="3-Research-Objective"><a href="#3-Research-Objective" class="headerlink" title="3.Research Objective"></a>3.Research Objective</h2><p>在自监督学习中预先训练好的模型用于说话人验证任务的微调策略尚未充分探索。</p>
-<h2 id="4-Method-s"><a href="#4-Method-s" class="headerlink" title="4.Method(s)"></a>4.Method(s)</h2><p>在本文中，作者分析了几种建立在预先训练模型之上的特征提取方法（发现预训练模型的较低层对说话人验证更有效，而顶层则侧重于语音信息）、正则化和学习速率调度器，以稳定微调过程并进一步提高性能。</p>
-<p>通过与一些分类器、特征提取器进行联合微调可以进一步提高性能，但是这样做会导致大规模的后端以及模型的过拟合，使训练变得相当麻烦（涉及到时间以及处理过拟合等问题）</p>
-<p>因此有人提出了一种两阶段的微调策略:就是首先<strong>冻结预先训练好的参数，重新开始优化随机初始化的特征提取器后端，然后联合训练两个模型</strong>，这能够使训练更加的稳定。最后也能在VoxCeleb数据集上得到不错的效果。但是这样的方法同样也存在弊端，那就是它的计算成本很高，它需要预训练模型多次迭代来初始化后端，然后才能通过联合训练的方式最大限度发挥该体系的能力。</p>
-<p>于是作者通过引入一个轻量级后端并设计适当的微调策略，研究了如何在说话人确认任务中最大限度地发挥预处理模型的能力。该后端完全基于注意力，不包含卷积层且每个帧的时间位置仅通过每个Transformer模型的固有机制进行编码（例如位置嵌入）</p>
-<h2 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5.Evaluation"></a>5.Evaluation</h2><p>后续可以考虑使用transformer作为特征提取器，虽然目前这种做法好像还是挺多的，算不上创新，不过效果应该会好一点。可以在基于这个的基础上加以改造试试。</p>
-<h2 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6.Conclusion"></a>6.Conclusion</h2><p>验证了transformer在提取说话人特征方面的强大能力。</p>
-<h2 id="7-Notes"><a href="#7-Notes" class="headerlink" title="7.Notes"></a>7.Notes</h2><h3 id="7-1-预训练"><a href="#7-1-预训练" class="headerlink" title="7.1 预训练"></a>7.1 预训练</h3><p>在这里看到一句话很好的解释了预训练的概念：预训练就是使用大量的数据，从中提取出该类数据的<strong>共性特征</strong>，从而减轻后续模型对<strong>特定任务</strong>的的学习负担。</p>
-<p><strong>预训练的本质</strong></p>
+                <h1 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h1><p>Dual Path Embedding Learning for Speaker Verification with Triplet Attention</p>
+<h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><p>本文提出了一种非常新颖的方法，通过两条路径来学习不同的特征，再让它们交互来得到更加全面的特征。用巧妙的设计模拟出了相似于RNN的状态，使得特征能够不断的积累。除此之外还提出了TA模块，即将C、F、T三种特征两两配对，经过注意力机制后再度融合，强调了三个维度间特征的相互依赖性。</p>
+<p>基于上述创新之处，构建出了DPNet。且达到了交换两条路径上的特征，并使特征不断积累的效果。</p>
+<h1 id="3-研究目标"><a href="#3-研究目标" class="headerlink" title="3.研究目标"></a>3.研究目标</h1><p>在说话人识别任务当中存在很多优秀的模型，但是人们对于掺杂了变种结构的混合模型的研究较少。故作者提出了一种新的混合变体网络结构。</p>
+<h1 id="4-使用方法"><a href="#4-使用方法" class="headerlink" title="4.使用方法"></a>4.使用方法</h1><p>该网络中主要有两点创新，一个是双路径嵌入学习，另一个是提出了基于注意力机制的三特征融合TA模块。</p>
+<h2 id="4-1-双路径嵌入学习"><a href="#4-1-双路径嵌入学习" class="headerlink" title="4.1 双路径嵌入学习"></a>4.1 双路径嵌入学习</h2><p>双路径为<strong>残差路径</strong>和<strong>循环路径</strong>，这两个路径所提取的特征都被用来交换信息以提取更好的特征。</p>
 <ul>
-<li>模型参数不再是随机初始化，而是通过一些任务进行预训练</li>
-<li>将整体训练拆分为共性学习和特性学习两个阶段</li>
+<li>残差路径使用的是常用的ResNet</li>
+<li>循环路径设计为给当前层提供的特征为先前网络层的特征沿着网络深度的积累（类似RNN，我想这也是它被称为循环路径的原因吧）</li>
 </ul>
-<p>上述两句话分别从模型和数据的角度解释了预训练的本质。举一个通俗的例子，若要让一个人去学习概率论。与一个文科生相比，显然是让一个学习过高等数学和线性代数的工科生学习概率论更为容易，而学习过的高等数学和线性代数对应到这里就是预训练的结果。平常我们也是采用一些优秀的预训练模型再加以微调，从而在我们自己特定的任务上得到较好的效果。</p>
-<h3 id="7-2-Transformer"><a href="#7-2-Transformer" class="headerlink" title="7.2 Transformer"></a>7.2 Transformer</h3><p>transformer这个模型值得单开一篇，这里附上链接：<a href="https://gaonan98.github.io/2022/10/19/qiang-da-de-transformer/">传送门</a></p>
-<h3 id="7-3-下采样"><a href="#7-3-下采样" class="headerlink" title="7.3 下采样"></a>7.3 下采样</h3><p>文中有提到下采样这个概念，经过查询，发现与之对应的还有上采样。</p>
-<p>用到采样的目的其实是为了均衡数据，下采样是将多的数据减少，而上采样是将少的数据增加。看资料介绍大多数时候是针对特征进行上下采样，例如我们常说的池化层有时候也称为下采样层。</p>
-<h2 id="8-Referen"><a href="#8-Referen" class="headerlink" title="8.Referen"></a>8.Referen</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48192256/article/details/120937144">预训练解读</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Tink1995/article/details/105080033?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166588496516782427410190%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&amp;request_id=166588496516782427410190&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-105080033-null-null.142%5Ev56%5Epc_search_v3,201%5Ev3%5Econtrol_2&amp;utm_term=Transformer&amp;spm=1018.2226.3001.4187">史上最小白之Transformer详解</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Tink1995/article/details/105012972">史上最小白之Attention详解</a></li>
+<p>下面是DPNet的模型结构图<br><img src="https://s1.ax1x.com/2022/11/02/xHO77D.jpg" alt="DPNet"></p>
+<ol>
+<li>残差路径</li>
+</ol>
+<p>残差路径即Residual Block，其实我觉得这个路径确切点可以叫做残差循环路径，因为在它也包含了和循环路径中相同的结构。不过作者可能更想突出它残差网络的部分，所以命名为残差路径。它主要使用ResNet网络和TA模块（TA后面会有讲到）</p>
+<ol start="2">
+<li>循环路径</li>
+</ol>
+<p>循环路径即Recurrent Block。它主要用来积累每一层的特征、与残差路径交换信息、在时序上达到对特征的<strong>再利用和再挖掘</strong>。需要注意的是再循环路径中用到的第一个卷积为point-wise convolution（还记得上一篇论文里面提到的depth-wise convolution么？<a href="https://gaonan98.github.io/2022/10/24/sheng-wen-shi-bie-lun-wen-yue-du-wu/">传送门</a>）</p>
+<p><em>这里不得不吐槽一下，这是一篇2022年声纹顶会interspeech上的文章，但是在写作时他却用了不合适的符号。他将循环路径中的两个卷积分别分为Conv1和Conv2，但是在模型图的残差路径中已经存在一个Conv1。这让我看的时候愣逼了半天，不过也有可能是我理解有问题吧，希望是我理解有问题。。。除此之外在本文Conclusions这一章，出现了把outperform错写成ourperform的低级错误，希望这也是我没看懂的单词吧，/(ㄒoㄒ)/~~</em></p>
+<p><strong>至此，我们可以看出DPNet的核心思想就是积累和交换两个路径上的特征，从而达到加强特征学习的效果。</strong></p>
+<h2 id="4-2-Triplet-Attention-Module-TA"><a href="#4-2-Triplet-Attention-Module-TA" class="headerlink" title="4.2 Triplet Attention Module(TA)"></a>4.2 Triplet Attention Module(TA)</h2><p>这里作者提出了一种新的注意力模块，如下图<br><img src="https://s1.ax1x.com/2022/11/04/xqODnP.png" alt="TA"><br>它主要分为三个部分，分别提取了特征在CF、CT和FT上的特征，强调了特征之间的相互依赖性，最后再加以融合。</p>
+<h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><ul>
+<li>DPNet继承了残差网络和循环网络的优点，能够更好的实现对于特征的<strong>再利用和再发现</strong></li>
+<li>DPNet的关键所在就是<strong>积累和交换</strong>两个路径下的特征</li>
+<li>在CNN网络中沿着<strong>深度</strong>引入循环路径对于特征的再利用和再发现是非常有用的</li>
+</ul>
+<h1 id="6-额外笔记"><a href="#6-额外笔记" class="headerlink" title="6.额外笔记"></a>6.额外笔记</h1><h2 id="6-1-pointwise-convolution"><a href="#6-1-pointwise-convolution" class="headerlink" title="6.1 pointwise convolution"></a>6.1 pointwise convolution</h2><p>它与常规卷积非常相似，唯一不同的是它的<strong>卷积核大小为1*1*M</strong>,M为被卷积特征的通道数。如下图：<br><img src="https://img-blog.csdnimg.cn/20210323144720682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjA2MDU3Mg==,size_16,color_FFFFFF,t_70" alt="pointwise convolution"></p>
+<h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7.参考资料"></a>7.参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42060572/article/details/115123303?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166752201816782428682113%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&amp;request_id=166752201816782428682113&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-5-115123303-null-null.142%5Ev63%5Econtrol,201%5Ev3%5Econtrol_2,213%5Ev1%5Et3_esquery_v1&amp;utm_term=pointwise%20convolution&amp;spm=1018.2226.3001.4187">卷积网络基础知识</a></li>
 </ul>
 
                 
@@ -512,7 +520,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gaonan98.github.io/2022/10/07/sheng-wen-shi-bie-lun-wen-yue-du-san/">https://gaonan98.github.io/2022/10/07/sheng-wen-shi-bie-lun-wen-yue-du-san/</a>
+                    <a href="https://gaonan98.github.io/2022/11/02/sheng-wen-shi-bie-lun-wen-yue-du-liu/">https://gaonan98.github.io/2022/11/02/sheng-wen-shi-bie-lun-wen-yue-du-liu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -906,46 +914,55 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/10/13/python-zhong-de-bu-ding-liang-can-shu-chuan-di/">
+                <a href="/2022/11/02/sheng-wen-shi-bie-lun-wen-yue-du-liu/">
                     <div class="card-image">
                         
+                        <img src="https://s1.ax1x.com/2022/11/02/xHdOAA.jpg" class="responsive-img" alt="声纹识别论文阅读（六）">
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="python中的不定量参数传递">
-                        
-                        <span class="card-title">python中的不定量参数传递</span>
+                        <span class="card-title">声纹识别论文阅读（六）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            python函数参数中的*args, **kwargs, **vars(args)解析。
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B/" class="post-category">
-                                    编程
+                            <a href="/categories/%E8%AE%BA%E6%96%87/" class="post-category">
+                                    论文
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python/">
-                        <span class="chip bg-color">python</span>
+                    <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">论文阅读笔记</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                        <span class="chip bg-color">人工智能</span>
                     </a>
                     
                 </div>
@@ -959,24 +976,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/05/sheng-wen-shi-bie-lun-wen-yue-du-er/">
+                <a href="/2022/10/24/sheng-wen-shi-bie-lun-wen-yue-du-wu/">
                     <div class="card-image">
                         
+                        <img src="https://s1.ax1x.com/2022/10/30/xIO7XF.jpg" class="responsive-img" alt="声纹识别论文阅读（五）">
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="声纹识别论文阅读（二）">
-                        
-                        <span class="card-title">声纹识别论文阅读（二）</span>
+                        <span class="card-title">声纹识别论文阅读（五）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍了一种在开放集上识别的基于度量学习的说话人识别。
+                            depth is more important than the width of networks for speaker verification task.
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-24
                             </span>
                         <span class="publish-author">
                             
