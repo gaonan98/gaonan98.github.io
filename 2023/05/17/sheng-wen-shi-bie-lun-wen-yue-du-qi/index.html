@@ -435,7 +435,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    715
+                    719
                 </div>
                 
 
@@ -475,7 +475,7 @@
 <h2 id="4-1-StageⅠ"><a href="#4-1-StageⅠ" class="headerlink" title="4.1 StageⅠ"></a>4.1 StageⅠ</h2><p>StageⅠ采用了<strong>对比学习</strong>的方法来训练说话人编码器。这里需要注意的是本文中的<strong>positive pairs</strong>定义为来自于同一段语音的<strong>segments</strong>（即同一段语音被分割后的两段），<strong>negative pairs</strong>则是来自不同语音的<strong>segments。</strong></p>
 <p><strong>这里其实对于对比学习还是依旧存在一点疑问，按照对比学习的方法，从同一个说话人的不同语音段分割出来的语音是属于negative pairs，这里让人感觉很别扭。博主查了一些相关资料，大致是这样解释的：对比学习的目的是判断是否是正负样本，本质上一个二分类的问题。它是在训练网络提取特征的能力（提取某一类型数据的通用特征），而并非有确切的目的（分类、分割、检测等）。当在没有标签的条件下得到一个不错的编码器之后，可以加上不同的任务头进一步去做下游任务，对应在本文中也就是StageⅡ阶段。</strong></p>
 <h2 id="4-2-StageⅡ"><a href="#4-2-StageⅡ" class="headerlink" title="4.2 StageⅡ"></a>4.2 StageⅡ</h2><p>首先，StageⅡ使用StageⅠ训练好的编码器作为<strong>initial model</strong>提取说话人特征；然后，使用k-means聚类算法对这些说话人特征进行聚类以生成伪标签，在这里作者假设聚类后的每一个簇表示同一个说话人；接着，再用生成的伪标签训练编码器；最后，经过不断迭代直到模型收敛。这里需要注意的是每次迭代得到的分类编码器会生成新的伪标签，用于下一次迭代训练。</p>
-<h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><ul>
+<h2 id="4-3-LOSS-GATED-LEARNING"><a href="#4-3-LOSS-GATED-LEARNING" class="headerlink" title="4.3 LOSS-GATED LEARNING"></a>4.3 <strong>LOSS-GATED LEARNING</strong></h2><h1 id="5-结论"><a href="#5-结论" class="headerlink" title="5.结论"></a>5.结论</h1><ul>
 <li>可靠的伪标签相比于不可靠的伪标签在网络建模时有着更快的速度</li>
 <li>LGL策略可以有效选择可靠伪标签</li>
 </ul>
