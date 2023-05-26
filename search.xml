@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Docker学习笔记</title>
+      <link href="/2023/05/26/docker-xue-xi-bi-ji/"/>
+      <url>/2023/05/26/docker-xue-xi-bi-ji/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>声纹识别论文阅读（七）</title>
       <link href="/2023/05/17/sheng-wen-shi-bie-lun-wen-yue-du-qi/"/>
       <url>/2023/05/17/sheng-wen-shi-bie-lun-wen-yue-du-qi/</url>
@@ -327,9 +352,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 深度学习 </tag>
+            
+            <tag> python </tag>
             
         </tags>
       
