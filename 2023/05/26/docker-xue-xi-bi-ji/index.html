@@ -463,7 +463,8 @@
 <li>容器内的应用直接运行在宿主机中，这里需要注意容<strong>器没有自己的内核，也没有虚拟硬件，因此轻便许多！</strong></li>
 <li>每个容器间相互隔离，每个容器内都有一个属于自己的文件系统，互不影响。这里让我感觉这地方的概念跟Anaconda中的虚拟环境挺像</li>
 </ul>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><img src="/image/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1685416840663.png" alt="Docker架构"><br><strong>镜像（image）</strong></p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p><img src="https://ts1.cn.mm.bing.net/th/id/R-C.1774676184117a7651da679303f7f2a5?rik=tD8GxVFzILxUTA&amp;riu=http://www.yiibai.com/uploads/images/201706/0206/262150629_86976.png&amp;ehk=b08QZOJOFKWBBfczWiSLKjdCb8XG5Ow2kHoxAUT2F/I=&amp;risl=&amp;pid=ImgRaw&amp;r=0" alt="Docker架构"></p>
+<p><strong>镜像（image）</strong></p>
 <p>镜像可以理解为一个模板，我们可以通过这个模板来创建容器服务，通过一个镜像可以创建多个容器（镜像类似一个类，而容器可以看作是这个镜像创建出来的实例对象）</p>
 <p><strong>容器（container）</strong></p>
 <p>Docker利用容器就可以独立运行一个或者一组应用。</p>
@@ -519,7 +520,7 @@ docker kill 容器id      # 强制停止当前容器
 
 # 手动拷贝需要的基本文件后commit，以后就可以使用这个修改过的镜像
 </code></pre>
-<p><img src="/image/Docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/1685331209791.png" alt="commit"></p>
+<p><img src="https://s1.ax1x.com/2023/05/30/p9jMK78.png" alt="commit"></p>
 <h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷？"><a href="#什么是容器数据卷？" class="headerlink" title="什么是容器数据卷？"></a>什么是容器数据卷？</h2><p>首先这里有个需求，就是如果容器删除，容器中的数据就会随之丢失。我们希望<strong>数据可以持久化存储在本地！</strong></p>
 <p>我们可以运用卷技术，将容器内的目录挂载到本地。</p>
 <p><strong>总结起来就是容器的持久化和同步操作，且不同的容器之间也可以进行数据共享！</strong></p>
