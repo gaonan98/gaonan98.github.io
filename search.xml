@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Spring&amp;SpringBoot常用注解总结</title>
+      <link href="/2023/08/19/spring-springboot-chang-yong-zhu-jie-zong-jie/"/>
+      <url>/2023/08/19/spring-springboot-chang-yong-zhu-jie-zong-jie/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在学习SpringBoot的时候会用到大量的注解，但是由于初学，总是忘记每个注解的具体作用。因此，在这里总结一下常用注解，方便以后复习查阅！</p><h1 id="1-SpringBootApplication"><a href="#1-SpringBootApplication" class="headerlink" title="1.@SpringBootApplication"></a>1.@SpringBootApplication</h1><p>这个注解一般在创建SpringBoot项目后会自动加载在主类上，相当于主类（也就是启动类）的标致。</p><p>而@SpringBootApplication其实是一个<strong>复合注解</strong>，它包含了 <strong>@Configuration、@EnableAutoConfiguration、@ComponentScan</strong>等注解。下面我们分别介绍一下：</p><ul><li>@EnableAutoConfiguration(重要):SpringBoot自动装配的核心</li><li>@ComponentScan:扫描被@Component (@Repository,@Service,@Controller)注解的 bean，注解默认会扫描该类所在的包下所有的类</li><li>@Configuration:允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</li></ul><h2 id="额外补充"><a href="#额外补充" class="headerlink" title="额外补充"></a>额外补充</h2><p><strong>bean</strong>是一个被实例化，组装，并通过 Spring IoC 容器所管理的对象。</p><h1 id="2-Spring-Bean相关"><a href="#2-Spring-Bean相关" class="headerlink" title="2.Spring Bean相关"></a>2.Spring Bean相关</h1><h1 id="2-1-Autowired"><a href="#2-1-Autowired" class="headerlink" title="2.1@Autowired"></a>2.1@Autowired</h1><p>未完待续。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> SpringBoot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IO基础知识总结</title>
       <link href="/2023/07/20/io-ji-chu-zhi-shi-zong-jie/"/>
       <url>/2023/07/20/io-ji-chu-zhi-shi-zong-jie/</url>
